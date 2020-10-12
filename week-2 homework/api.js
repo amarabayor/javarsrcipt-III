@@ -21,14 +21,20 @@ cities.push({
     latitude: 41.41,
     longitude: 2.19,
 });
+cities.push({
+  name: "Lleida",
+  latitude: 41.41,
+  longitude: 2.19,
+});
+
 
 function  main(){
-    let weatherData = getweatherdata();
+    let weatherData = getweatherdata(cities);
    
 }
 
-function getweatherdata(){
-    for (const citi of cities){
+function getweatherdata(data){
+    for (const citi of data){
         fetch(configuration.weatherUrl+"?key="+configuration.apikey+"&city="+citi.name)
         .then(resp=> resp.json())
         .then(resp=>{
@@ -66,4 +72,27 @@ function createweathercard(innercontent){
     card.classList.add("card", "mx-4");
     card.innerHTML = innercontent;
     return card;
+};
+
+let Button =document.querySelector(".button")
+let searchinput =document.querySelector(".form-control");
+let textForSearch = searchinput.value;
+Button.addEventListener('click', (event)=>{
+  event.preventDefault();
+  filterCity();
+
+
+  })
+
+  function filterCity() {
+    let searchResault = cities.filter((item) => {
+      if (item.name.toLowerCase().includes(searchinput.value)) {
+        return true;
+      }
+    });
+    let cardBlock=document.querySelector(".weather-card")
+    cardBlock.innerHTML = '';
+    getweatherdata(searchResault);
+
 }
+
