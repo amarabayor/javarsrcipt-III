@@ -2,3 +2,4 @@
     background-color:darkslateblue ;
 }
 
+#map { position: absolute; top: 0; bottom: 10; width: 95%; height: 350px;}
